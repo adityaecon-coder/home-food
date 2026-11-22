@@ -1,0 +1,4 @@
+# Packages used by the chat API (Vercel installs these when it deploys)
+google-adk==2.15.0
+python-dotenv==1.2.4
+fastapi

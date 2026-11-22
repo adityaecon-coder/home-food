@@ -1,0 +1,23 @@
+# Secrets: never upload these
+.env
+.streamlit/secrets.toml
+
+# Python's virtual environment and caches
+.venv
+venv/
+__pycache__/
+*.pyc
+
+# Files the agent creates while it runs
+.adk/
+chroma_db/
+.vercel/
+tickets.csv
+
+# Editor and system clutter
+.DS_Store
+.vscode/
+.idea/
+
+.vercel
+.env*

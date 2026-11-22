@@ -1,0 +1,6 @@
+.venv
+.env
+tickets.csv
+__pycache__
+.claude
+.adk

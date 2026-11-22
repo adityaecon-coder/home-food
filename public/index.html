@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TiffinGo – Home-style meals, delivered</title>
+  <style>
+    :root { --orange:#f97316; --orange-dark:#ea580c; --ink:#1f2937; --muted:#6b7280; --bg:#fffaf5; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; color:var(--ink); background:var(--bg); }
+    header { display:flex; justify-content:space-between; align-items:center; padding:16px 6vw; background:#fff; border-bottom:1px solid #f3e8dc; position:sticky; top:0; z-index:5; }
+    .logo { font-weight:800; font-size:1.4rem; color:var(--orange); }
+    nav a { margin-left:22px; color:var(--ink); text-decoration:none; font-weight:500; }
+    nav a:hover { color:var(--orange); }
+    .hero { padding:72px 6vw; display:grid; gap:24px; background:linear-gradient(135deg,#fff3e6,#ffe4cc); }
+    .hero h1 { font-size:clamp(2rem,5vw,3.4rem); margin:0; line-height:1.1; max-width:14em; }
+    .hero p { font-size:1.15rem; color:var(--muted); max-width:34em; margin:0; }
+    .btn { display:inline-block; background:var(--orange); color:#fff; padding:12px 26px; border-radius:999px; text-decoration:none; font-weight:600; width:fit-content; }
+    .btn:hover { background:var(--orange-dark); }
+    section { padding:56px 6vw; }
+    h2 { margin:0 0 24px; font-size:1.8rem; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:20px; }
+    .card { background:#fff; border:1px solid #f3e8dc; border-radius:16px; padding:20px; }
+    .card .emoji { font-size:2.4rem; }
+    .card h3 { margin:10px 0 4px; }
+    .card p { margin:0; color:var(--muted); font-size:.95rem; }
+    .price { color:var(--orange-dark); font-weight:700; margin-top:10px; }
+    .info { background:#fff; }
+    .info ul { margin:0; padding-left:20px; line-height:1.9; }
+    footer { text-align:center; padding:28px; color:var(--muted); font-size:.9rem; }
+
+    /* ---------- Tiffy chat widget ---------- */
+    #tiffy-btn { position:fixed; right:22px; bottom:22px; width:62px; height:62px; border-radius:50%; border:none; background:var(--orange); color:#fff; font-size:1.7rem; cursor:pointer; box-shadow:0 6px 20px rgba(0,0,0,.25); z-index:50; }
+    #tiffy-btn:hover { background:var(--orange-dark); }
+    #tiffy-panel { position:fixed; right:22px; bottom:96px; width:360px; max-width:calc(100vw - 32px); height:520px; max-height:calc(100vh - 120px); background:#fff; border-radius:18px; box-shadow:0 12px 40px rgba(0,0,0,.28); display:none; flex-direction:column; overflow:hidden; z-index:50; }
+    #tiffy-panel.open { display:flex; }
+    .t-head { background:var(--orange); color:#fff; padding:14px 16px; display:flex; justify-content:space-between; align-items:center; }
+    .t-head b { font-size:1.05rem; }
+    .t-head small { display:block; opacity:.9; }
+    .t-head button { background:none; border:none; color:#fff; font-size:1.4rem; cursor:pointer; }
+    #t-msgs { flex:1; overflow-y:auto; padding:14px; display:flex; flex-direction:column; gap:10px; background:#fffaf5; }
+    .b { max-width:82%; padding:9px 13px; border-radius:16px; line-height:1.4; font-size:.94rem; white-space:pre-wrap; word-wrap:break-word; }
+    .b.tiffy { background:#fff; border:1px solid #f3e8dc; align-self:flex-start; border-bottom-left-radius:4px; }
+    .b.user { background:var(--orange); color:#fff; align-self:flex-end; border-bottom-right-radius:4px; }
+    .b.typing { color:var(--muted); font-style:italic; }
+    #t-form { display:flex; gap:8px; padding:10px; border-top:1px solid #f3e8dc; }
+    #t-input { flex:1; padding:10px 14px; border:1px solid #e5d9cc; border-radius:999px; font-size:.95rem; outline:none; }
+    #t-input:focus { border-color:var(--orange); }
+    #t-form button { background:var(--orange); color:#fff; border:none; border-radius:999px; padding:0 18px; font-weight:600; cursor:pointer; }
+    #t-form button:disabled { opacity:.5; cursor:default; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">🍱 TiffinGo</div>
+    <nav><a href="#menu">Menu</a><a href="#plans">Tiffin plans</a><a href="#delivery">Delivery</a></nav>
+  </header>
+
+  <div class="hero">
+    <h1>Home-style meals, delivered to your door.</h1>
+    <p>Fresh food cooked in partner home kitchens near you. Order a single meal or subscribe to a monthly tiffin plan.</p>
+    <a class="btn" href="#menu">Order now</a>
+  </div>
+
+  <section id="menu">
+    <h2>Popular today</h2>
+    <div class="grid">
+      <div class="card"><div class="emoji">🍛</div><h3>Veg Thali</h3><p>Dal, sabzi, roti, rice and sweet.</p><div class="price">₹205</div></div>
+      <div class="card"><div class="emoji">🍚</div><h3>Rajma Chawal</h3><p>Slow-cooked rajma with steamed rice.</p><div class="price">₹143</div></div>
+      <div class="card"><div class="emoji">🧀</div><h3>Paneer Butter Masala</h3><p>Creamy paneer with 4 rotis.</p><div class="price">₹265</div></div>
+      <div class="card"><div class="emoji">🥘</div><h3>Dal Khichdi</h3><p>Comfort food, just like home.</p><div class="price">₹175</div></div>
+      <div class="card"><div class="emoji">🫓</div><h3>Aloo Paratha</h3><p>Two parathas with fresh curd.</p><div class="price">₹195</div></div>
+      <div class="card"><div class="emoji">🍲</div><h3>Veg Biryani</h3><p>Fragrant biryani with raita.</p><div class="price">₹170</div></div>
+    </div>
+  </section>
+
+  <section id="plans" class="info">
+    <h2>Monthly tiffin plans</h2>
+    <ul>
+      <li>20 or 26 meals a month, for lunch or dinner</li>
+      <li>Plans start at ₹2,400</li>
+      <li>Pause up to 5 days a month from the app</li>
+    </ul>
+  </section>
+
+  <section id="delivery">
+    <h2>Delivery</h2>
+    <ul>
+      <li>Lunch 11 AM – 3 PM · Dinner 7 PM – 11 PM, all days</li>
+      <li>Within 7 km of each kitchen, usually 30–45 minutes</li>
+      <li>Free delivery above ₹300</li>
+    </ul>
+    <p>Questions about an order, a refund or a plan? Chat with <b>Tiffy</b> in the corner. 👉</p>
+  </section>
+
+  <footer>TiffinGo is a made-up business used for a learning project. All data is practice data.</footer>
+
+  <!-- Tiffy chat widget -->
+  <button id="tiffy-btn" aria-label="Chat with Tiffy">💬</button>
+  <div id="tiffy-panel" role="dialog" aria-label="Chat with Tiffy">
+    <div class="t-head">
+      <div><b>Tiffy</b><small>TiffinGo support</small></div>
+      <button id="t-close" aria-label="Close chat">×</button>
+    </div>
+    <div id="t-msgs"></div>
+    <form id="t-form">
+      <input id="t-input" type="text" placeholder="Type your message…" autocomplete="off" maxlength="1000" />
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <script>
+    const GREETING = "Hi, I'm Tiffy from TiffinGo! Hungry or need help with an order?";
+    const panel = document.getElementById("tiffy-panel");
+    const msgs = document.getElementById("t-msgs");
+    const form = document.getElementById("t-form");
+    const input = document.getElementById("t-input");
+    const sendBtn = form.querySelector("button");
+    let history = [];   // {role: "user" | "tiffy", text}
+    let opened = false;
+
+    function addBubble(role, text) {
+      const el = document.createElement("div");
+      el.className = "b " + role;
+      el.textContent = text;           // textContent, so nothing typed or returned can inject HTML
+      msgs.appendChild(el);
+      msgs.scrollTop = msgs.scrollHeight;
+      return el;
+    }
+
+    function toggle(open) {
+      panel.classList.toggle("open", open);
+      if (open && !opened) { opened = true; addBubble("tiffy", GREETING); }
+      if (open) input.focus();
+    }
+    document.getElementById("tiffy-btn").onclick = () => toggle(!panel.classList.contains("open"));
+    document.getElementById("t-close").onclick = () => toggle(false);
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = "";
+      addBubble("user", text);
+      const typing = addBubble("tiffy typing", "Tiffy is typing…");
+      sendBtn.disabled = true;
+      try {
+        const res = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: text, history: history.slice(-10) }),
+        });
+        const data = await res.json();
+        typing.remove();
+        const reply = data.reply || "Sorry, something went wrong. Please try again.";
+        addBubble("tiffy", reply);
+        history.push({ role: "user", text }, { role: "tiffy", text: reply });
+      } catch (err) {
+        typing.remove();
+        addBubble("tiffy", "Sorry, I can't connect right now. Please try again.");
+      }
+      sendBtn.disabled = false;
+      input.focus();
+    });
+  </script>
+</body>
+</html>

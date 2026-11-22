@@ -1,11 +1,11 @@
 """
 The chat API that the website's chat widget calls.
 
-POST /api/chat  with  {"message": "...", "history": [{"role": "user"|"tiffy", "text": "..."}]}
+POST /api/chat  with  {"message": "...", "history": [{"role": "user"|"tanny", "text": "..."}]}
 returns {"reply": "..."}.
 
 The web server keeps no memory between requests, so the widget sends the recent history
-every time and we pass it to Tiffy along with the new message.
+every time and we pass it to Tanny along with the new message.
 """
 
 import asyncio
@@ -33,12 +33,12 @@ class ChatRequest(BaseModel):
     history: list[dict] = []
 
 
-async def ask_tiffy(message: str, history: list[dict]) -> str:
+async def ask_tanny(message: str, history: list[dict]) -> str:
     # A fresh session per request; the earlier conversation is included as text.
     # Only the last 10 turns are used, and every line is cut short.
     lines = []
     for turn in history[-10:]:
-        who = "Customer" if turn.get("role") == "user" else "Tiffy"
+        who = "Customer" if turn.get("role") == "user" else "Tanny"
         lines.append(f"{who}: {str(turn.get('text', ''))[:800]}")
     prompt = message[:1500]
     if lines:
@@ -67,7 +67,7 @@ async def chat(req: ChatRequest):
     # Gemini sometimes says "busy" (503) or "quota" (429). Try up to 3 times before giving up.
     for attempt in range(3):
         try:
-            reply = await ask_tiffy(req.message, req.history)
+            reply = await ask_tanny(req.message, req.history)
             return {"reply": reply or "Sorry, I couldn't answer that. Please try again."}
         except Exception as e:
             print(f"chat error (attempt {attempt + 1}):", repr(e)[:300])

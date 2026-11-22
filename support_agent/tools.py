@@ -1,5 +1,5 @@
 """
-The three tools Tiffy can use. Each is a plain Python function.
+The three tools Tanny can use. Each is a plain Python function.
 The agent reads the function name, the docstring and the arguments to decide when to call it.
 """
 

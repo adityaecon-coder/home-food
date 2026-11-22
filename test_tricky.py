@@ -1,10 +1,10 @@
-"""Sends the tricky messages to Tiffy one by one and prints each reply."""
+"""Sends the tricky messages to Tanny one by one and prints each reply."""
 import asyncio
 import sys
 
 sys.stdout.reconfigure(encoding="utf-8")  # so emoji print on Windows
 
-from api.chat import ask_tiffy
+from api.chat import ask_tanny
 
 MESSAGES = [
     "Hi",
@@ -28,7 +28,7 @@ async def main():
         print(f"\nCUSTOMER: {m}")
         for attempt in range(3):
             try:
-                print(f"TIFFY: {await ask_tiffy(m, [])}")
+                print(f"TANNY: {await ask_tanny(m, [])}")
                 break
             except Exception as e:  # free Gemini key allows ~15 requests a minute: wait and retry
                 print("  (busy, waiting 30s...)", type(e).__name__)

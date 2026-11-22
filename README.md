@@ -1,6 +1,6 @@
-# Tiffy (TiffinGo support agent)
+# Tanny (TiffinGo support agent)
 
-A TiffinGo demo website with a chat widget powered by Tiffy (Google ADK + Gemini).
+A TiffinGo demo website with a chat widget powered by Tanny (Google ADK + Gemini).
 
 Run locally: `.venv/Scripts/python dev_server.py` then open http://127.0.0.1:8000
 

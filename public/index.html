@@ -4,102 +4,224 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>TiffinGo – Home-style meals, delivered</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    :root { --orange:#f97316; --orange-dark:#ea580c; --ink:#1f2937; --muted:#6b7280; --bg:#fffaf5; }
+    :root { --saffron:#e8590c; --saffron-d:#c2410c; --cream:#fff8f0; --sand:#f6e7d4; --ink:#2b1d14; --muted:#7a6a5d; --green:#2f9e44; --red:#c92a2a; --card:#fff; --shadow:0 8px 30px rgba(120,60,10,.12); }
     * { box-sizing:border-box; }
-    body { margin:0; font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; color:var(--ink); background:var(--bg); }
-    header { display:flex; justify-content:space-between; align-items:center; padding:16px 6vw; background:#fff; border-bottom:1px solid #f3e8dc; position:sticky; top:0; z-index:5; }
-    .logo { font-weight:800; font-size:1.4rem; color:var(--orange); }
-    nav a { margin-left:22px; color:var(--ink); text-decoration:none; font-weight:500; }
-    nav a:hover { color:var(--orange); }
-    .hero { padding:72px 6vw; display:grid; gap:24px; background:linear-gradient(135deg,#fff3e6,#ffe4cc); }
-    .hero h1 { font-size:clamp(2rem,5vw,3.4rem); margin:0; line-height:1.1; max-width:14em; }
-    .hero p { font-size:1.15rem; color:var(--muted); max-width:34em; margin:0; }
-    .btn { display:inline-block; background:var(--orange); color:#fff; padding:12px 26px; border-radius:999px; text-decoration:none; font-weight:600; width:fit-content; }
-    .btn:hover { background:var(--orange-dark); }
-    section { padding:56px 6vw; }
-    h2 { margin:0 0 24px; font-size:1.8rem; }
-    .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:20px; }
-    .card { background:#fff; border:1px solid #f3e8dc; border-radius:16px; padding:20px; }
-    .card .emoji { font-size:2.4rem; }
-    .card h3 { margin:10px 0 4px; }
-    .card p { margin:0; color:var(--muted); font-size:.95rem; }
-    .price { color:var(--orange-dark); font-weight:700; margin-top:10px; }
-    .info { background:#fff; }
-    .info ul { margin:0; padding-left:20px; line-height:1.9; }
-    footer { text-align:center; padding:28px; color:var(--muted); font-size:.9rem; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; color:var(--ink); background:var(--cream); }
+    h1,h2,h3 { font-family:Fraunces,Georgia,serif; margin:0; }
+    img { display:block; }
 
-    /* ---------- Tiffy chat widget ---------- */
-    #tiffy-btn { position:fixed; right:22px; bottom:22px; width:62px; height:62px; border-radius:50%; border:none; background:var(--orange); color:#fff; font-size:1.7rem; cursor:pointer; box-shadow:0 6px 20px rgba(0,0,0,.25); z-index:50; }
-    #tiffy-btn:hover { background:var(--orange-dark); }
-    #tiffy-panel { position:fixed; right:22px; bottom:96px; width:360px; max-width:calc(100vw - 32px); height:520px; max-height:calc(100vh - 120px); background:#fff; border-radius:18px; box-shadow:0 12px 40px rgba(0,0,0,.28); display:none; flex-direction:column; overflow:hidden; z-index:50; }
-    #tiffy-panel.open { display:flex; }
-    .t-head { background:var(--orange); color:#fff; padding:14px 16px; display:flex; justify-content:space-between; align-items:center; }
-    .t-head b { font-size:1.05rem; }
-    .t-head small { display:block; opacity:.9; }
-    .t-head button { background:none; border:none; color:#fff; font-size:1.4rem; cursor:pointer; }
-    #t-msgs { flex:1; overflow-y:auto; padding:14px; display:flex; flex-direction:column; gap:10px; background:#fffaf5; }
-    .b { max-width:82%; padding:9px 13px; border-radius:16px; line-height:1.4; font-size:.94rem; white-space:pre-wrap; word-wrap:break-word; }
-    .b.tiffy { background:#fff; border:1px solid #f3e8dc; align-self:flex-start; border-bottom-left-radius:4px; }
-    .b.user { background:var(--orange); color:#fff; align-self:flex-end; border-bottom-right-radius:4px; }
+    /* header */
+    header { position:sticky; top:0; z-index:20; display:flex; justify-content:space-between; align-items:center; padding:14px 6vw; background:rgba(255,248,240,.92); backdrop-filter:blur(10px); border-bottom:1px solid var(--sand); }
+    .logo { font-family:Fraunces,serif; font-weight:800; font-size:1.5rem; color:var(--saffron); letter-spacing:-.5px; }
+    .logo span { color:var(--ink); }
+    nav { display:flex; gap:26px; align-items:center; }
+    nav a { color:var(--ink); text-decoration:none; font-weight:500; font-size:.95rem; }
+    nav a:hover { color:var(--saffron); }
+    #cart-open { position:relative; background:var(--saffron); color:#fff; border:none; border-radius:999px; padding:10px 20px; font-weight:600; cursor:pointer; font-size:.95rem; }
+    #cart-open:hover { background:var(--saffron-d); }
+    #cart-count { position:absolute; top:-6px; right:-4px; background:var(--ink); color:#fff; border-radius:999px; min-width:22px; height:22px; font-size:.75rem; display:none; align-items:center; justify-content:center; padding:0 5px; }
+    @media (max-width:760px){ nav a { display:none; } }
+
+    /* hero */
+    .hero { display:grid; grid-template-columns:1.1fr .9fr; gap:40px; align-items:center; padding:64px 6vw 56px; background:radial-gradient(circle at 85% 10%,#ffd8b0 0,transparent 45%),linear-gradient(135deg,#fff3e2,#ffe3c4); }
+    .hero .tag { display:inline-block; background:#fff; border:1px solid var(--sand); color:var(--saffron-d); font-weight:600; font-size:.85rem; padding:6px 14px; border-radius:999px; margin-bottom:18px; }
+    .hero h1 { font-size:clamp(2.2rem,5vw,3.8rem); line-height:1.05; letter-spacing:-1px; }
+    .hero h1 em { color:var(--saffron); font-style:normal; }
+    .hero p { font-size:1.1rem; color:var(--muted); max-width:30em; margin:18px 0 28px; line-height:1.6; }
+    .btn { display:inline-block; background:var(--saffron); color:#fff; padding:14px 30px; border-radius:999px; text-decoration:none; font-weight:600; border:none; cursor:pointer; font-size:1rem; }
+    .btn:hover { background:var(--saffron-d); }
+    .btn.ghost { background:transparent; color:var(--ink); border:1.5px solid var(--ink); margin-left:10px; }
+    .btn.ghost:hover { background:var(--ink); color:#fff; }
+    .stats { display:flex; gap:34px; margin-top:34px; }
+    .stats b { font-family:Fraunces,serif; font-size:1.6rem; display:block; }
+    .stats span { color:var(--muted); font-size:.85rem; }
+    .collage { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .collage img { width:100%; height:210px; object-fit:cover; border-radius:22px; box-shadow:var(--shadow); }
+    .collage img:nth-child(1){ height:260px; } .collage img:nth-child(4){ height:260px; margin-top:-50px; }
+    @media (max-width:900px){ .hero{grid-template-columns:1fr;} .collage{display:none;} }
+
+    section { padding:60px 6vw; }
+    .sec-head { display:flex; justify-content:space-between; align-items:end; flex-wrap:wrap; gap:14px; margin-bottom:26px; }
+    .sec-head h2 { font-size:2.2rem; }
+    .sec-head p { margin:6px 0 0; color:var(--muted); }
+
+    /* filters */
+    .filters { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:28px; align-items:center; }
+    .chip { border:1.5px solid var(--sand); background:#fff; color:var(--ink); padding:8px 18px; border-radius:999px; cursor:pointer; font-weight:500; font-size:.9rem; }
+    .chip:hover { border-color:var(--saffron); }
+    .chip.on { background:var(--ink); color:#fff; border-color:var(--ink); }
+    .vegtoggle { margin-left:auto; display:flex; align-items:center; gap:8px; font-size:.9rem; font-weight:500; cursor:pointer; user-select:none; }
+    .vegtoggle input { accent-color:var(--green); width:18px; height:18px; }
+
+    /* menu grid */
+    .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:24px; }
+    .dish { background:var(--card); border-radius:22px; overflow:hidden; box-shadow:var(--shadow); display:flex; flex-direction:column; transition:transform .2s; }
+    .dish:hover { transform:translateY(-4px); }
+    .dish .ph { position:relative; height:170px; background:var(--sand); display:flex; align-items:center; justify-content:center; font-size:3rem; }
+    .dish .ph img { width:100%; height:100%; object-fit:cover; }
+    .dot { position:absolute; top:12px; left:12px; width:20px; height:20px; border-radius:4px; background:#fff; border:2px solid var(--green); display:flex; align-items:center; justify-content:center; }
+    .dot::after { content:""; width:10px; height:10px; border-radius:50%; background:var(--green); }
+    .dot.nv { border-color:var(--red); } .dot.nv::after { background:var(--red); }
+    .dish .body { padding:16px 18px 18px; display:flex; flex-direction:column; flex:1; }
+    .dish h3 { font-size:1.12rem; }
+    .dish .cuisine { color:var(--saffron-d); font-size:.75rem; font-weight:600; text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; }
+    .dish p { color:var(--muted); font-size:.88rem; line-height:1.45; margin:6px 0 14px; flex:1; }
+    .dish .row { display:flex; justify-content:space-between; align-items:center; }
+    .price { font-weight:700; font-size:1.1rem; }
+    .add { background:#fff; color:var(--saffron-d); border:1.5px solid var(--saffron); border-radius:10px; padding:8px 20px; font-weight:700; cursor:pointer; }
+    .add:hover { background:var(--saffron); color:#fff; }
+    .qty { display:flex; align-items:center; gap:10px; background:var(--saffron); color:#fff; border-radius:10px; padding:4px 6px; }
+    .qty button { background:none; border:none; color:#fff; font-size:1.2rem; width:28px; height:28px; cursor:pointer; font-weight:700; }
+    .qty span { min-width:16px; text-align:center; font-weight:700; }
+
+    /* plans + info */
+    .plans { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:24px; }
+    .plan { background:#fff; border-radius:22px; padding:28px; box-shadow:var(--shadow); border:2px solid transparent; }
+    .plan.hot { border-color:var(--saffron); }
+    .plan h3 { font-size:1.3rem; } .plan .big { font-family:Fraunces,serif; font-size:2.2rem; color:var(--saffron); margin:10px 0; }
+    .plan ul { padding-left:18px; color:var(--muted); line-height:1.9; margin:0; }
+    .info { background:var(--sand); }
+    .info-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:22px; }
+    .info-card { background:#fff; border-radius:18px; padding:22px; }
+    .info-card .e { font-size:1.8rem; } .info-card h3 { font-size:1.05rem; margin:8px 0 4px; } .info-card p { margin:0; color:var(--muted); font-size:.92rem; line-height:1.5; }
+    footer { text-align:center; padding:34px 6vw; color:var(--muted); font-size:.88rem; }
+
+    /* cart drawer */
+    #overlay { position:fixed; inset:0; background:rgba(30,15,5,.45); display:none; z-index:40; }
+    #overlay.on { display:block; }
+    #drawer { position:fixed; top:0; right:0; height:100%; width:420px; max-width:100vw; background:#fff; z-index:41; transform:translateX(105%); transition:transform .3s; display:flex; flex-direction:column; box-shadow:-10px 0 40px rgba(0,0,0,.2); }
+    #drawer.on { transform:none; }
+    .d-head { display:flex; justify-content:space-between; align-items:center; padding:20px 22px; border-bottom:1px solid var(--sand); }
+    .d-head h2 { font-size:1.5rem; } .d-head button { background:none; border:none; font-size:1.8rem; cursor:pointer; color:var(--muted); }
+    #d-items { flex:1; overflow-y:auto; padding:14px 22px; }
+    .ci { display:flex; gap:12px; align-items:center; padding:12px 0; border-bottom:1px solid #f5ece1; }
+    .ci img, .ci .em { width:56px; height:56px; border-radius:12px; object-fit:cover; background:var(--sand); display:flex; align-items:center; justify-content:center; font-size:1.5rem; flex-shrink:0; }
+    .ci .nm { flex:1; font-weight:600; font-size:.92rem; } .ci .nm small { display:block; color:var(--muted); font-weight:400; }
+    .ci .qty { padding:2px 4px; } .ci .qty button { width:24px; height:24px; font-size:1rem; }
+    .empty { text-align:center; color:var(--muted); padding:50px 10px; }
+    .addons h4 { margin:18px 0 8px; font-size:.9rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; }
+    .addons .chips { display:flex; flex-wrap:wrap; gap:8px; }
+    .addons button { border:1.5px dashed var(--saffron); background:#fff8f0; color:var(--saffron-d); border-radius:999px; padding:6px 12px; font-size:.82rem; font-weight:600; cursor:pointer; }
+    .d-foot { padding:18px 22px; border-top:1px solid var(--sand); background:var(--cream); }
+    .tot { display:flex; justify-content:space-between; font-size:.92rem; margin-bottom:6px; color:var(--muted); }
+    .tot.big { color:var(--ink); font-weight:700; font-size:1.15rem; margin:10px 0 14px; }
+    .warn { color:var(--red); font-size:.85rem; margin-bottom:10px; }
+    .d-foot .btn { width:100%; text-align:center; }
+    .d-foot .btn:disabled { background:#d9c9b8; cursor:not-allowed; }
+
+    /* checkout modal */
+    #modal { position:fixed; inset:0; z-index:60; display:none; align-items:center; justify-content:center; background:rgba(30,15,5,.55); padding:16px; }
+    #modal.on { display:flex; }
+    .mbox { background:#fff; border-radius:24px; padding:28px; width:440px; max-width:100%; max-height:92vh; overflow-y:auto; }
+    .mbox h2 { font-size:1.6rem; margin-bottom:14px; }
+    .mbox label { display:block; font-size:.85rem; font-weight:600; margin:12px 0 4px; }
+    .mbox input, .mbox select, .mbox textarea { width:100%; padding:10px 12px; border:1.5px solid var(--sand); border-radius:10px; font:inherit; }
+    .mbox input:focus, .mbox select:focus, .mbox textarea:focus { outline:none; border-color:var(--saffron); }
+    .mbox .btn { width:100%; margin-top:20px; }
+    .mbox .cancel { display:block; text-align:center; margin-top:12px; color:var(--muted); cursor:pointer; font-size:.9rem; }
+    .done { text-align:center; } .done .big { font-size:3.4rem; } .done .oid { font-family:Fraunces,serif; font-size:1.6rem; color:var(--saffron); margin:6px 0; }
+    .note { font-size:.8rem; color:var(--muted); margin-top:10px; }
+    #toast { position:fixed; left:50%; bottom:28px; transform:translateX(-50%) translateY(120px); background:var(--ink); color:#fff; padding:12px 22px; border-radius:999px; font-size:.9rem; z-index:70; transition:transform .3s; }
+    #toast.on { transform:translateX(-50%) translateY(0); }
+
+    /* Tanny chat widget */
+    #tanny-btn { position:fixed; right:22px; bottom:22px; height:62px; border-radius:999px; border:none; background:var(--ink); color:#fff; font-size:1rem; font-weight:600; cursor:pointer; box-shadow:0 8px 24px rgba(0,0,0,.3); z-index:50; padding:0 22px 0 16px; display:flex; align-items:center; gap:10px; }
+    #tanny-btn:hover { background:#4a3324; }
+    #tanny-btn .av { width:36px; height:36px; border-radius:50%; background:var(--saffron); display:flex; align-items:center; justify-content:center; font-size:1.2rem; }
+    #tanny-panel { position:fixed; right:22px; bottom:96px; width:370px; max-width:calc(100vw - 32px); height:530px; max-height:calc(100vh - 120px); background:#fff; border-radius:22px; box-shadow:0 16px 50px rgba(0,0,0,.3); display:none; flex-direction:column; overflow:hidden; z-index:50; }
+    #tanny-panel.open { display:flex; }
+    .t-head { background:var(--ink); color:#fff; padding:14px 16px; display:flex; justify-content:space-between; align-items:center; }
+    .t-head .who { display:flex; gap:10px; align-items:center; } .t-head .av { width:38px; height:38px; border-radius:50%; background:var(--saffron); display:flex; align-items:center; justify-content:center; font-size:1.2rem; }
+    .t-head b { display:block; } .t-head small { opacity:.8; }
+    .t-head button { background:none; border:none; color:#fff; font-size:1.5rem; cursor:pointer; }
+    #t-msgs { flex:1; overflow-y:auto; padding:14px; display:flex; flex-direction:column; gap:10px; background:var(--cream); }
+    .b { max-width:82%; padding:9px 13px; border-radius:16px; line-height:1.4; font-size:.92rem; white-space:pre-wrap; word-wrap:break-word; }
+    .b.tanny { background:#fff; border:1px solid var(--sand); align-self:flex-start; border-bottom-left-radius:4px; }
+    .b.user { background:var(--saffron); color:#fff; align-self:flex-end; border-bottom-right-radius:4px; }
     .b.typing { color:var(--muted); font-style:italic; }
-    #t-form { display:flex; gap:8px; padding:10px; border-top:1px solid #f3e8dc; }
-    #t-input { flex:1; padding:10px 14px; border:1px solid #e5d9cc; border-radius:999px; font-size:.95rem; outline:none; }
-    #t-input:focus { border-color:var(--orange); }
-    #t-form button { background:var(--orange); color:#fff; border:none; border-radius:999px; padding:0 18px; font-weight:600; cursor:pointer; }
+    #t-form { display:flex; gap:8px; padding:10px; border-top:1px solid var(--sand); }
+    #t-input { flex:1; padding:10px 14px; border:1.5px solid var(--sand); border-radius:999px; font-size:.93rem; outline:none; font-family:inherit; }
+    #t-input:focus { border-color:var(--saffron); }
+    #t-form button { background:var(--saffron); color:#fff; border:none; border-radius:999px; padding:0 18px; font-weight:600; cursor:pointer; }
     #t-form button:disabled { opacity:.5; cursor:default; }
   </style>
 </head>
 <body>
   <header>
-    <div class="logo">🍱 TiffinGo</div>
-    <nav><a href="#menu">Menu</a><a href="#plans">Tiffin plans</a><a href="#delivery">Delivery</a></nav>
+    <div class="logo">Tiffin<span>Go</span></div>
+    <nav>
+      <a href="#menu">Menu</a><a href="#plans">Tiffin plans</a><a href="#delivery">Delivery</a>
+      <button id="cart-open">🛒 Cart <span id="cart-count"></span></button>
+    </nav>
   </header>
 
   <div class="hero">
-    <h1>Home-style meals, delivered to your door.</h1>
-    <p>Fresh food cooked in partner home kitchens near you. Order a single meal or subscribe to a monthly tiffin plan.</p>
-    <a class="btn" href="#menu">Order now</a>
+    <div>
+      <span class="tag">🏠 Cooked in real home kitchens</span>
+      <h1>Ghar ka khaana, <em>delivered</em> to your door.</h1>
+      <p>Thalis, curries, dosas, mithai and more, made fresh by home chefs near you. Order a single meal or subscribe to a monthly tiffin plan.</p>
+      <a class="btn" href="#menu">Order now</a><a class="btn ghost" href="#plans">See tiffin plans</a>
+      <div class="stats"><div><b>45+</b><span>Home-style dishes</span></div><div><b>30–45 min</b><span>Delivery</span></div><div><b>7 km</b><span>From each kitchen</span></div></div>
+    </div>
+    <div class="collage">
+      <img src="images/veg-thali.jpeg" alt="Veg thali" />
+      <img src="images/masala-dosa.jpg" alt="Masala dosa" />
+      <img src="images/gulab-jamun.jpg" alt="Gulab jamun" />
+      <img src="images/pav-bhaji.jpg" alt="Pav bhaji" />
+    </div>
   </div>
 
   <section id="menu">
-    <h2>Popular today</h2>
-    <div class="grid">
-      <div class="card"><div class="emoji">🍛</div><h3>Veg Thali</h3><p>Dal, sabzi, roti, rice and sweet.</p><div class="price">₹205</div></div>
-      <div class="card"><div class="emoji">🍚</div><h3>Rajma Chawal</h3><p>Slow-cooked rajma with steamed rice.</p><div class="price">₹143</div></div>
-      <div class="card"><div class="emoji">🧀</div><h3>Paneer Butter Masala</h3><p>Creamy paneer with 4 rotis.</p><div class="price">₹265</div></div>
-      <div class="card"><div class="emoji">🥘</div><h3>Dal Khichdi</h3><p>Comfort food, just like home.</p><div class="price">₹175</div></div>
-      <div class="card"><div class="emoji">🫓</div><h3>Aloo Paratha</h3><p>Two parathas with fresh curd.</p><div class="price">₹195</div></div>
-      <div class="card"><div class="emoji">🍲</div><h3>Veg Biryani</h3><p>Fragrant biryani with raita.</p><div class="price">₹170</div></div>
+    <div class="sec-head">
+      <div><h2>Today's menu</h2><p>Pick your favourites, add sides and sweets, and we'll deliver it hot.</p></div>
+    </div>
+    <div class="filters" id="filters"></div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section id="plans" style="background:var(--sand)">
+    <div class="sec-head"><div><h2>Monthly tiffin plans</h2><p>Same home chef, every day. Pause up to 5 days a month from the app.</p></div></div>
+    <div class="plans">
+      <div class="plan"><h3>Lunch plan · 20 meals</h3><div class="big">₹2,400<small style="font-size:1rem;color:var(--muted)"> /month</small></div><ul><li>20 lunches a month</li><li>Rotating home-style menu</li><li>Delivered 11 AM – 3 PM</li></ul></div>
+      <div class="plan hot"><h3>Lunch or dinner · 26 meals</h3><div class="big">from ₹2,400<small style="font-size:1rem;color:var(--muted)"> /month</small></div><ul><li>26 meals a month</li><li>Choose lunch or dinner</li><li>Pause up to 5 days a month</li></ul></div>
+      <div class="plan"><h3>Dinner plan · 20 meals</h3><div class="big">₹2,400<small style="font-size:1rem;color:var(--muted)"> /month</small></div><ul><li>20 dinners a month</li><li>Light, home-cooked meals</li><li>Delivered 7 PM – 11 PM</li></ul></div>
     </div>
   </section>
 
-  <section id="plans" class="info">
-    <h2>Monthly tiffin plans</h2>
-    <ul>
-      <li>20 or 26 meals a month, for lunch or dinner</li>
-      <li>Plans start at ₹2,400</li>
-      <li>Pause up to 5 days a month from the app</li>
-    </ul>
+  <section id="delivery" class="info">
+    <div class="sec-head"><div><h2>Delivery &amp; help</h2></div></div>
+    <div class="info-grid">
+      <div class="info-card"><div class="e">🕐</div><h3>Delivery hours</h3><p>Lunch 11 AM – 3 PM and dinner 7 PM – 11 PM, all days.</p></div>
+      <div class="info-card"><div class="e">📍</div><h3>Within 7 km</h3><p>Kitchens deliver within 7 km. Usually 30–45 minutes.</p></div>
+      <div class="info-card"><div class="e">🚚</div><h3>Delivery fee</h3><p>₹25 under ₹300. Free above ₹300. Minimum order ₹150.</p></div>
+      <div class="info-card"><div class="e">💬</div><h3>Need help?</h3><p>Chat with <b>Tanny</b>, our support assistant, in the bottom-right corner.</p></div>
+    </div>
   </section>
 
-  <section id="delivery">
-    <h2>Delivery</h2>
-    <ul>
-      <li>Lunch 11 AM – 3 PM · Dinner 7 PM – 11 PM, all days</li>
-      <li>Within 7 km of each kitchen, usually 30–45 minutes</li>
-      <li>Free delivery above ₹300</li>
-    </ul>
-    <p>Questions about an order, a refund or a plan? Chat with <b>Tiffy</b> in the corner. 👉</p>
-  </section>
+  <footer>TiffinGo is a made-up business used for a learning project. All data and orders are practice data. Food photos from Wikipedia / Wikimedia Commons (free licences).</footer>
 
-  <footer>TiffinGo is a made-up business used for a learning project. All data is practice data.</footer>
+  <!-- cart drawer -->
+  <div id="overlay"></div>
+  <aside id="drawer" aria-label="Your cart">
+    <div class="d-head"><h2>Your cart</h2><button id="cart-close" aria-label="Close cart">×</button></div>
+    <div id="d-items"></div>
+    <div class="d-foot" id="d-foot"></div>
+  </aside>
 
-  <!-- Tiffy chat widget -->
-  <button id="tiffy-btn" aria-label="Chat with Tiffy">💬</button>
-  <div id="tiffy-panel" role="dialog" aria-label="Chat with Tiffy">
+  <!-- checkout modal -->
+  <div id="modal"><div class="mbox" id="mbox"></div></div>
+  <div id="toast"></div>
+
+  <!-- Tanny chat widget -->
+  <button id="tanny-btn" aria-label="Chat with Tanny"><span class="av">💬</span>Chat with Tanny</button>
+  <div id="tanny-panel" role="dialog" aria-label="Chat with Tanny">
     <div class="t-head">
-      <div><b>Tiffy</b><small>TiffinGo support</small></div>
+      <div class="who"><span class="av">🍱</span><div><b>Tanny</b><small>TiffinGo support</small></div></div>
       <button id="t-close" aria-label="Close chat">×</button>
     </div>
     <div id="t-msgs"></div>
@@ -110,57 +232,244 @@
   </div>
 
   <script>
-    const GREETING = "Hi, I'm Tiffy from TiffinGo! Hungry or need help with an order?";
-    const panel = document.getElementById("tiffy-panel");
-    const msgs = document.getElementById("t-msgs");
-    const form = document.getElementById("t-form");
-    const input = document.getElementById("t-input");
+    /* ---------- MENU DATA ---------- */
+    // v = vegetarian. Images are in /images (some may be missing: an emoji is shown instead).
+    const MENU = [
+      // Thali
+      {id:"veg-thali", n:"Veg Thali", c:"Thali", v:1, p:205, img:"veg-thali.jpeg", e:"🍛", d:"Dal, seasonal sabzi, roti, rice, salad and a sweet."},
+      {id:"mini-thali", n:"Mini Thali", c:"Thali", v:1, p:140, img:"veg-thali.jpeg", e:"🍛", d:"A lighter thali: dal, one sabzi, 2 rotis and rice."},
+      // North Indian
+      {id:"paneer-butter-masala", n:"Paneer Butter Masala + 4 Roti", c:"North Indian", v:1, p:265, img:"paneer-butter-masala.jpg", e:"🧀", d:"Soft paneer in a rich tomato-butter gravy."},
+      {id:"palak-paneer", n:"Palak Paneer + 3 Roti", c:"North Indian", v:1, p:245, img:"palak-paneer.jpg", e:"🥬", d:"Paneer in a smooth, mildly spiced spinach gravy."},
+      {id:"dal-tadka", n:"Dal Tadka + 3 Roti", c:"North Indian", v:1, p:160, img:"dal-tadka.png", e:"🍲", d:"Yellow dal tempered with ghee, garlic and jeera."},
+      {id:"rajma-chawal", n:"Rajma Chawal", c:"North Indian", v:1, p:143, img:"rajma-chawal.jpg", e:"🍚", d:"Slow-cooked rajma with steamed rice."},
+      {id:"chole-bhature", n:"Chole Bhature", c:"North Indian", v:1, p:185, img:"chole-bhature.jpg", e:"🫓", d:"Spicy chole with 2 fluffy bhature."},
+      {id:"aloo-paratha", n:"Aloo Paratha x2 + Curd", c:"North Indian", v:1, p:195, img:"aloo-paratha.jpg", e:"🫓", d:"Two stuffed parathas with fresh curd."},
+      {id:"kadhi-chawal", n:"Kadhi Chawal", c:"North Indian", v:1, p:150, img:"kadhi-chawal.jpg", e:"🍚", d:"Tangy yogurt kadhi with pakoras and rice."},
+      {id:"dal-khichdi", n:"Dal Khichdi", c:"North Indian", v:1, p:175, img:"dal-khichdi.jpg", e:"🥘", d:"Comfort food, just like home."},
+      {id:"veg-biryani", n:"Veg Biryani", c:"North Indian", v:1, p:170, img:"veg-biryani.jpg", e:"🍲", d:"Fragrant biryani with vegetables, served with raita."},
+      {id:"chicken-curry", n:"Chicken Curry + Rice", c:"North Indian", v:0, p:315, img:"chicken-curry.jpg", e:"🍗", d:"Home-style chicken curry with steamed rice."},
+      {id:"egg-curry", n:"Egg Curry + 3 Roti", c:"North Indian", v:0, p:215, img:"egg-curry.jpg", e:"🥚", d:"Boiled eggs in a spicy onion-tomato gravy."},
+      // South Indian
+      {id:"masala-dosa", n:"Masala Dosa", c:"South Indian", v:1, p:130, img:"masala-dosa.jpg", e:"🥞", d:"Crisp dosa with potato masala, sambar and chutney."},
+      {id:"idli-sambar", n:"Idli Sambar (4 pc)", c:"South Indian", v:1, p:110, img:"idli-sambar.jpg", e:"⚪", d:"Soft steamed idlis with sambar and coconut chutney."},
+      {id:"sambar-rice", n:"Sambar Rice + Papad", c:"South Indian", v:1, p:175, img:"sambar-rice.jpg", e:"🍚", d:"Rice and vegetable sambar with a crisp papad."},
+      {id:"curd-rice", n:"Curd Rice", c:"South Indian", v:1, p:120, img:"curd-rice.jpg", e:"🍚", d:"Cooling curd rice with a mustard-curry leaf tadka."},
+      {id:"lemon-rice", n:"Lemon Rice", c:"South Indian", v:1, p:115, img:"lemon-rice.jpg", e:"🍋", d:"Tangy rice with peanuts and curry leaves."},
+      {id:"fish-curry", n:"Fish Curry + Rice", c:"South Indian", v:0, p:320, img:"fish-curry.jpg", e:"🐟", d:"Coastal-style fish curry with steamed rice."},
+      // Gujarati & Maharashtrian
+      {id:"dhokla", n:"Khaman Dhokla", c:"Gujarati & Maharashtrian", v:1, p:100, img:"dhokla.jpg", e:"🟡", d:"Soft, spongy steamed snack with green chutney."},
+      {id:"thepla", n:"Methi Thepla (4 pc)", c:"Gujarati & Maharashtrian", v:1, p:120, img:"thepla.jpg", e:"🫓", d:"Fenugreek flatbreads, great with curd and pickle."},
+      {id:"pav-bhaji", n:"Pav Bhaji", c:"Gujarati & Maharashtrian", v:1, p:150, img:"pav-bhaji.jpg", e:"🍞", d:"Buttery mashed vegetables with toasted pav."},
+      {id:"misal-pav", n:"Misal Pav", c:"Gujarati & Maharashtrian", v:1, p:140, img:"misal-pav.jpg", e:"🌶️", d:"Spicy sprouted-moth curry with pav and farsan."},
+      {id:"poha", n:"Kanda Poha", c:"Gujarati & Maharashtrian", v:1, p:80, img:"poha.jpg", e:"🍚", d:"Light flattened rice with onion, peanuts and lemon."},
+      // Bengali
+      {id:"fish-jhol", n:"Macher Jhol + Rice", c:"Bengali", v:0, p:340, img:"fish-jhol.jpg", e:"🐟", d:"Light Bengali fish stew with potatoes, served with rice."},
+      // Sweets
+      {id:"gulab-jamun", n:"Gulab Jamun (2 pc)", c:"Sweets", v:1, p:70, img:"gulab-jamun.jpg", e:"🍮", d:"Soft khoya dumplings in warm sugar syrup."},
+      {id:"kheer", n:"Rice Kheer", c:"Sweets", v:1, p:80, img:"kheer.jpg", e:"🥣", d:"Creamy rice pudding with cardamom and nuts."},
+      {id:"gajar-halwa", n:"Gajar Ka Halwa", c:"Sweets", v:1, p:90, img:"gajar-halwa.jpg", e:"🥕", d:"Slow-cooked carrot halwa with ghee and dry fruits."},
+      {id:"besan-ladoo", n:"Besan Ladoo (2 pc)", c:"Sweets", v:1, p:60, img:"besan-ladoo.jpg", e:"🟠", d:"Ghee-roasted gram flour ladoos."},
+      {id:"rasgulla", n:"Rasgulla (2 pc)", c:"Sweets", v:1, p:70, img:"rasgulla.jpg", e:"⚪", d:"Spongy chenna balls in light sugar syrup."},
+      {id:"mysore-pak", n:"Mysore Pak (2 pc)", c:"Sweets", v:1, p:80, img:"mysore-pak.jpg", e:"🟨", d:"Rich ghee and besan fudge from the South."},
+      {id:"shrikhand", n:"Shrikhand", c:"Sweets", v:1, p:85, img:"shrikhand.jpg", e:"🍨", d:"Sweet strained yogurt with saffron and cardamom."},
+      {id:"puran-poli", n:"Puran Poli (2 pc)", c:"Sweets", v:1, p:90, img:"puran-poli.jpg", e:"🫓", d:"Sweet flatbread stuffed with chana dal and jaggery."},
+      // Beverages
+      {id:"masala-chai", n:"Masala Chai", c:"Beverages", v:1, p:30, img:"masala-chai.jpg", e:"☕", d:"Hot tea with ginger and cardamom."},
+      {id:"filter-coffee", n:"Filter Coffee", c:"Beverages", v:1, p:45, img:"filter-coffee.jpg", e:"☕", d:"South Indian filter coffee, strong and frothy."},
+      {id:"sweet-lassi", n:"Sweet Lassi", c:"Beverages", v:1, p:60, img:"sweet-lassi.jpg", e:"🥛", d:"Thick, chilled sweet yogurt drink."},
+      {id:"chaas", n:"Masala Chaas", c:"Beverages", v:1, p:35, img:"chaas.jpg", e:"🥛", d:"Spiced buttermilk with roasted jeera."},
+      {id:"nimbu-pani", n:"Nimbu Pani", c:"Beverages", v:1, p:40, img:"nimbu-pani.jpg", e:"🍋", d:"Fresh lemon water with a pinch of kala namak."},
+      {id:"jaljeera", n:"Jaljeera", c:"Beverages", v:1, p:40, img:"jaljeera.jpg", e:"🌿", d:"Tangy cumin-mint cooler."},
+      // Add-ons
+      {id:"mango-pickle", n:"Mango Pickle (Achaar)", c:"Add-ons", v:1, p:20, img:"mango-pickle.jpg", e:"🥭", d:"Home-made tangy mango achaar."},
+      {id:"dahi", n:"Fresh Curd (Dahi)", c:"Add-ons", v:1, p:30, img:"dahi.jpg", e:"🥛", d:"Thick, set-at-home curd."},
+      {id:"kachumber", n:"Kachumber Salad", c:"Add-ons", v:1, p:40, img:"kachumber.jpg", e:"🥗", d:"Chopped onion, tomato and cucumber with lemon."},
+      {id:"raita", n:"Boondi Raita", c:"Add-ons", v:1, p:35, img:"raita.jpg", e:"🥣", d:"Whisked curd with crispy boondi."},
+      {id:"papad", n:"Roasted Papad", c:"Add-ons", v:1, p:15, img:"papad.jpg", e:"🟤", d:"Crisp roasted papad."},
+      {id:"roti", n:"Extra Roti (2 pc)", c:"Add-ons", v:1, p:20, img:"roti.jpg", e:"🫓", d:"Two soft phulkas with ghee."},
+    ];
+    const CATS = ["All","Thali","North Indian","South Indian","Gujarati & Maharashtrian","Bengali","Sweets","Beverages","Add-ons"];
+    const byId = Object.fromEntries(MENU.map(m => [m.id, m]));
+    const rupee = n => "₹" + n.toLocaleString("en-IN");
+
+    /* ---------- STATE ---------- */
+    let cat = "All", vegOnly = false;
+    // cart = { dishId: quantity }. Only known dish ids are kept, so stored data can't inject anything.
+    let cart = {};
+    try {
+      const saved = JSON.parse(localStorage.getItem("tiffingo-cart") || "{}");
+      for (const [id, q] of Object.entries(saved)) if (byId[id] && Number.isInteger(q) && q > 0 && q < 50) cart[id] = q;
+    } catch (e) {}
+    const save = () => localStorage.setItem("tiffingo-cart", JSON.stringify(cart));
+
+    /* ---------- MENU RENDER ---------- */
+    function photo(m) {
+      return `<img src="images/${m.img}" alt="${m.n}" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('span'),{textContent:'${m.e}'}))" />`;
+    }
+    function qtyControl(id) {
+      const q = cart[id] || 0;
+      return q
+        ? `<div class="qty"><button data-dec="${id}" aria-label="Remove one">−</button><span>${q}</span><button data-inc="${id}" aria-label="Add one">+</button></div>`
+        : `<button class="add" data-inc="${id}">ADD</button>`;
+    }
+    function renderFilters() {
+      document.getElementById("filters").innerHTML =
+        CATS.map(c => `<button class="chip ${c === cat ? "on" : ""}" data-cat="${c}">${c}</button>`).join("") +
+        `<label class="vegtoggle"><input type="checkbox" id="veg" ${vegOnly ? "checked" : ""}/> Veg only</label>`;
+    }
+    function renderGrid() {
+      const items = MENU.filter(m => (cat === "All" || m.c === cat) && (!vegOnly || m.v));
+      document.getElementById("grid").innerHTML = items.map(m => `
+        <article class="dish">
+          <div class="ph">${photo(m)}<span class="dot ${m.v ? "" : "nv"}" title="${m.v ? "Veg" : "Non-veg"}"></span></div>
+          <div class="body">
+            <div class="cuisine">${m.c}</div><h3>${m.n}</h3><p>${m.d}</p>
+            <div class="row"><span class="price">${rupee(m.p)}</span><span id="q-${m.id}">${qtyControl(m.id)}</span></div>
+          </div>
+        </article>`).join("") || `<p>No dishes match.</p>`;
+    }
+
+    /* ---------- CART ---------- */
+    const subtotal = () => Object.entries(cart).reduce((s, [id, q]) => s + byId[id].p * q, 0);
+    const count = () => Object.values(cart).reduce((s, q) => s + q, 0);
+    // Rules from the TiffinGo help docs: minimum order ₹150, delivery ₹25 under ₹300, free above ₹300.
+    const MIN_ORDER = 150;
+    const deliveryFee = sub => (sub >= 300 ? 0 : 25);
+
+    function change(id, delta) {
+      const q = (cart[id] || 0) + delta;
+      if (q <= 0) delete cart[id]; else if (q < 50) cart[id] = q;
+      save(); refresh();
+      if (delta > 0 && q === 1) toast(byId[id].n + " added to cart");
+    }
+    function refresh() {
+      const n = count(), badge = document.getElementById("cart-count");
+      badge.textContent = n; badge.style.display = n ? "flex" : "none";
+      document.querySelectorAll("[id^='q-']").forEach(el => el.innerHTML = qtyControl(el.id.slice(2)));
+      renderDrawer();
+    }
+    function renderDrawer() {
+      const box = document.getElementById("d-items"), foot = document.getElementById("d-foot");
+      const ids = Object.keys(cart);
+      if (!ids.length) {
+        box.innerHTML = `<div class="empty">🍽️<br/>Your cart is empty.<br/>Add something tasty from the menu!</div>`;
+        foot.innerHTML = ""; return;
+      }
+      const sub = subtotal(), fee = deliveryFee(sub), total = sub + fee;
+      const suggestions = ["mango-pickle","dahi","kachumber","papad","raita","masala-chai","gulab-jamun"].filter(i => !cart[i]);
+      box.innerHTML = ids.map(id => { const m = byId[id]; return `
+        <div class="ci">
+          ${photo(m).replace("<img ", "<img class='cimg' ")}
+          <div class="nm">${m.n}<small>${rupee(m.p)} each</small></div>
+          <div class="qty"><button data-dec="${id}">−</button><span>${cart[id]}</span><button data-inc="${id}">+</button></div>
+          <b>${rupee(m.p * cart[id])}</b>
+        </div>`; }).join("") +
+        (suggestions.length ? `<div class="addons"><h4>Add a side or sweet</h4><div class="chips">${
+          suggestions.map(i => `<button data-inc="${i}">+ ${byId[i].n} · ${rupee(byId[i].p)}</button>`).join("")}</div></div>` : "");
+      foot.innerHTML = `
+        <div class="tot"><span>Subtotal</span><span>${rupee(sub)}</span></div>
+        <div class="tot"><span>Delivery fee</span><span>${fee ? rupee(fee) : "FREE"}</span></div>
+        ${fee ? `<div class="tot"><span>Add ${rupee(300 - sub)} more for free delivery</span><span></span></div>` : ""}
+        <div class="tot big"><span>Total</span><span>${rupee(total)}</span></div>
+        ${sub < MIN_ORDER ? `<div class="warn">Minimum order is ${rupee(MIN_ORDER)}. Add ${rupee(MIN_ORDER - sub)} more.</div>` : ""}
+        <button class="btn" id="checkout" ${sub < MIN_ORDER ? "disabled" : ""}>Checkout · ${rupee(total)}</button>`;
+    }
+    const openDrawer = o => {
+      document.getElementById("drawer").classList.toggle("on", o);
+      document.getElementById("overlay").classList.toggle("on", o);
+    };
+
+    /* ---------- CHECKOUT (demo: nothing is sent anywhere) ---------- */
+    function openCheckout() {
+      const sub = subtotal(), total = sub + deliveryFee(sub);
+      document.getElementById("mbox").innerHTML = `
+        <h2>Checkout</h2>
+        <label>Your name</label><input id="c-name" placeholder="e.g. Priya" maxlength="60" />
+        <label>Delivery address</label><textarea id="c-addr" rows="2" placeholder="House no, street, area" maxlength="200"></textarea>
+        <label>Delivery slot</label>
+        <select id="c-slot"><option>Lunch (11 AM – 3 PM)</option><option>Dinner (7 PM – 11 PM)</option></select>
+        <label>Payment</label>
+        <select id="c-pay"><option>UPI</option><option>Card</option><option>Wallet</option><option>Cash on delivery</option></select>
+        <label>Cooking note (optional)</label><input id="c-note" placeholder="e.g. less spice" maxlength="120" />
+        <button class="btn" id="place">Place order · ${rupee(total)}</button>
+        <span class="cancel" id="m-cancel">Back to cart</span>
+        <p class="note">Demo only: no real payment or order is created.</p>`;
+      document.getElementById("modal").classList.add("on");
+    }
+    function placeOrder() {
+      const name = document.getElementById("c-name").value.trim(), addr = document.getElementById("c-addr").value.trim();
+      if (!name || !addr) { toast("Please enter your name and address"); return; }
+      const id = "TG" + (2000 + Math.floor(Math.random() * 8000));
+      const total = subtotal() + deliveryFee(subtotal()), slot = document.getElementById("c-slot").value;
+      cart = {}; save(); refresh(); openDrawer(false);
+      const box = document.getElementById("mbox");
+      box.innerHTML = `<div class="done"><div class="big">🎉</div><h2>Order placed!</h2>
+        <div class="oid"></div><p></p><button class="btn" id="m-close">Done</button></div>`;
+      box.querySelector(".oid").textContent = id;
+      box.querySelector("p").textContent = `Thanks, ${name}! ${rupee(total)} · ${slot}. Your meal will arrive in 30–45 minutes.`;
+    }
+
+    /* ---------- events ---------- */
+    document.addEventListener("click", e => {
+      const t = e.target.closest("button, .cancel, #overlay"); if (!t) return;
+      if (t.dataset.inc) change(t.dataset.inc, 1);
+      else if (t.dataset.dec) change(t.dataset.dec, -1);
+      else if (t.dataset.cat) { cat = t.dataset.cat; renderFilters(); renderGrid(); }
+      else if (t.id === "cart-open") { renderDrawer(); openDrawer(true); }
+      else if (t.id === "cart-close" || t.id === "overlay") openDrawer(false);
+      else if (t.id === "checkout") openCheckout();
+      else if (t.id === "place") placeOrder();
+      else if (t.id === "m-cancel" || t.id === "m-close") document.getElementById("modal").classList.remove("on");
+    });
+    document.addEventListener("change", e => { if (e.target.id === "veg") { vegOnly = e.target.checked; renderGrid(); } });
+    function toast(msg) {
+      const t = document.getElementById("toast"); t.textContent = msg; t.classList.add("on");
+      clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("on"), 1800);
+    }
+    renderFilters(); renderGrid(); refresh();
+
+    /* ---------- TANNY CHAT WIDGET ---------- */
+    const GREETING = "Hi, I'm Tanny from TiffinGo! Hungry or need help with an order?";
+    const panel = document.getElementById("tanny-panel"), msgs = document.getElementById("t-msgs");
+    const form = document.getElementById("t-form"), input = document.getElementById("t-input");
     const sendBtn = form.querySelector("button");
-    let history = [];   // {role: "user" | "tiffy", text}
-    let opened = false;
+    let history = [], opened = false;   // history items: {role: "user" | "tanny", text}
 
     function addBubble(role, text) {
       const el = document.createElement("div");
       el.className = "b " + role;
       el.textContent = text;           // textContent, so nothing typed or returned can inject HTML
-      msgs.appendChild(el);
-      msgs.scrollTop = msgs.scrollHeight;
+      msgs.appendChild(el); msgs.scrollTop = msgs.scrollHeight;
       return el;
     }
-
-    function toggle(open) {
+    function toggleChat(open) {
       panel.classList.toggle("open", open);
-      if (open && !opened) { opened = true; addBubble("tiffy", GREETING); }
+      if (open && !opened) { opened = true; addBubble("tanny", GREETING); }
       if (open) input.focus();
     }
-    document.getElementById("tiffy-btn").onclick = () => toggle(!panel.classList.contains("open"));
-    document.getElementById("t-close").onclick = () => toggle(false);
+    document.getElementById("tanny-btn").onclick = () => toggleChat(!panel.classList.contains("open"));
+    document.getElementById("t-close").onclick = () => toggleChat(false);
 
-    form.addEventListener("submit", async (e) => {
+    form.addEventListener("submit", async e => {
       e.preventDefault();
-      const text = input.value.trim();
-      if (!text) return;
-      input.value = "";
-      addBubble("user", text);
-      const typing = addBubble("tiffy typing", "Tiffy is typing…");
+      const text = input.value.trim(); if (!text) return;
+      input.value = ""; addBubble("user", text);
+      const typing = addBubble("tanny typing", "Tanny is typing…");
       sendBtn.disabled = true;
       try {
         const res = await fetch("/api/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: text, history: history.slice(-10) }),
+          method: "POST", headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({message: text, history: history.slice(-10)}),
         });
-        const data = await res.json();
-        typing.remove();
+        const data = await res.json(); typing.remove();
         const reply = data.reply || "Sorry, something went wrong. Please try again.";
-        addBubble("tiffy", reply);
-        history.push({ role: "user", text }, { role: "tiffy", text: reply });
+        addBubble("tanny", reply);
+        history.push({role: "user", text}, {role: "tanny", text: reply});
       } catch (err) {
-        typing.remove();
-        addBubble("tiffy", "Sorry, I can't connect right now. Please try again.");
+        typing.remove(); addBubble("tanny", "Sorry, I can't connect right now. Please try again.");
       }
-      sendBtn.disabled = false;
-      input.focus();
+      sendBtn.disabled = false; input.focus();
     });
   </script>
 </body>

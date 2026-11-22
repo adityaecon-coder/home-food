@@ -54,6 +54,12 @@ def create_ticket(message: str, reason: str, priority: str) -> dict:
     if TICKETS_FILE.exists():
         with open(TICKETS_FILE, newline="", encoding="utf-8") as f:
             rows = list(csv.DictReader(f))
+    # If a retry repeats the same ticket within 2 minutes, return the existing one (no duplicates).
+    now = datetime.now()
+    for r in reversed(rows):
+        age = (now - datetime.strptime(r["time"], "%Y-%m-%d %H:%M:%S")).total_seconds()
+        if age < 120 and r["reason"] == reason and r["customer_message"][:20] == message[:20]:
+            return {"ticket_id": r["ticket_id"], "status": "open"}
     # The ID is made by the code (never by the model) and always goes up, so it never repeats.
     last = max((int(r["ticket_id"].split("-")[1]) for r in rows), default=1000)
     ticket_id = f"TKT-{last + 1}"

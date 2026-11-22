@@ -23,6 +23,8 @@ from google.genai import types
 from pydantic import BaseModel
 
 from support_agent.agent import root_agent
+from support_agent.escalation import find_sensitive_word
+from support_agent.tools import create_ticket
 
 app = FastAPI()
 APP_NAME = "tiffingo"
@@ -64,6 +66,17 @@ async def ask_tanny(message: str, history: list[dict]) -> str:
 @app.post("/api/chat")
 @app.post("/")
 async def chat(req: ChatRequest):
+    # Sensitive words (legal, fraud, health...) go straight to a human executive. No AI call.
+    hit = find_sensitive_word(req.message)
+    if hit:
+        word, priority = hit
+        ticket = create_ticket(req.message[:300], f"sensitive word: {word}", priority)
+        return {
+            "escalated": True,
+            "reply": (f"This needs one of our support executives. I've raised ticket {ticket['ticket_id']} "
+                      "and an executive will contact you within 24 hours. "
+                      "Please don't share card numbers or OTPs in this chat."),
+        }
     # Gemini sometimes says "busy" (503) or "quota" (429). Try up to 3 times before giving up.
     for attempt in range(3):
         try:

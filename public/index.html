@@ -8,44 +8,70 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    :root { --saffron:#e8590c; --saffron-d:#c2410c; --cream:#fff8f0; --sand:#f6e7d4; --ink:#2b1d14; --muted:#7a6a5d; --green:#2f9e44; --red:#c92a2a; --card:#fff; --shadow:0 8px 30px rgba(120,60,10,.12); }
+    :root { --primary:#1f6f54; --primary-d:#14503d; --gold:#f2b632; --cream:#fbf7ee; --sand:#efe6d3; --ink:#18261f; --muted:#68756d; --green:#2f9e44; --red:#c92a2a; --card:#fff; --shadow:0 8px 30px rgba(20,60,45,.13); }
     * { box-sizing:border-box; }
     html { scroll-behavior:smooth; }
+    html,body { overflow-x:hidden; }
     body { margin:0; font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; color:var(--ink); background:var(--cream); }
     h1,h2,h3 { font-family:Fraunces,Georgia,serif; margin:0; }
     img { display:block; }
 
     /* header */
-    header { position:sticky; top:0; z-index:20; display:flex; justify-content:space-between; align-items:center; padding:14px 6vw; background:rgba(255,248,240,.92); backdrop-filter:blur(10px); border-bottom:1px solid var(--sand); }
-    .logo { font-family:Fraunces,serif; font-weight:800; font-size:1.5rem; color:var(--saffron); letter-spacing:-.5px; }
-    .logo span { color:var(--ink); }
-    nav { display:flex; gap:26px; align-items:center; }
+    .topbar { background:var(--ink); color:#f3e9cf; text-align:center; font-size:.82rem; padding:8px 4vw; letter-spacing:.2px; }
+    .topbar b { color:var(--gold); }
+    header { position:sticky; top:0; z-index:20; display:grid; grid-template-columns:auto 1fr auto; gap:22px; align-items:center; padding:12px 6vw; background:rgba(251,247,238,.94); backdrop-filter:blur(10px); border-bottom:1px solid var(--sand); }
+    .logo { font-family:Fraunces,serif; font-weight:800; font-size:1.5rem; color:var(--primary); letter-spacing:-.5px; text-decoration:none; cursor:pointer; white-space:nowrap; }
+    .logo span { color:var(--gold); }
+    nav { display:flex; gap:24px; align-items:center; }
+    .search { position:relative; max-width:480px; width:100%; margin:0 auto; }
+    .search input { width:100%; padding:11px 18px 11px 42px; border:1.5px solid var(--sand); border-radius:999px; background:#fff; font:inherit; font-size:.93rem; outline:none; }
+    .search input:focus { border-color:var(--primary); box-shadow:0 0 0 4px rgba(31,111,84,.12); }
+    .search .ic { position:absolute; left:15px; top:50%; transform:translateY(-50%); pointer-events:none; opacity:.55; }
+    #search-toggle { display:none; background:#fff; border:1.5px solid var(--sand); border-radius:50%; width:42px; height:42px; font-size:1.05rem; cursor:pointer; }
     nav a { color:var(--ink); text-decoration:none; font-weight:500; font-size:.95rem; }
-    nav a:hover { color:var(--saffron); }
-    #cart-open { position:relative; background:var(--saffron); color:#fff; border:none; border-radius:999px; padding:10px 20px; font-weight:600; cursor:pointer; font-size:.95rem; }
-    #cart-open:hover { background:var(--saffron-d); }
+    nav a:hover { color:var(--primary); }
+    #cart-open { position:relative; background:var(--primary); color:#fff; border:none; border-radius:999px; padding:10px 20px; font-weight:600; cursor:pointer; font-size:.95rem; }
+    #cart-open:hover { background:var(--primary-d); }
     #cart-count { position:absolute; top:-6px; right:-4px; background:var(--ink); color:#fff; border-radius:999px; min-width:22px; height:22px; font-size:.75rem; display:none; align-items:center; justify-content:center; padding:0 5px; }
-    @media (max-width:760px){ nav a { display:none; } }
+    @media (max-width:1000px){ nav a { display:none; } }
+    @media (max-width:760px){
+      header { grid-template-columns:auto 1fr auto auto; gap:10px; }
+      #search-toggle { display:block; grid-column:3; grid-row:1; }
+      nav { grid-column:4; grid-row:1; }
+      .search { display:none; grid-column:1 / -1; grid-row:2; max-width:none; }
+      .search.open { display:block; }
+    }
 
     /* hero */
-    .hero { display:grid; grid-template-columns:1.1fr .9fr; gap:40px; align-items:center; padding:64px 6vw 56px; background:radial-gradient(circle at 85% 10%,#ffd8b0 0,transparent 45%),linear-gradient(135deg,#fff3e2,#ffe3c4); }
-    .hero .tag { display:inline-block; background:#fff; border:1px solid var(--sand); color:var(--saffron-d); font-weight:600; font-size:.85rem; padding:6px 14px; border-radius:999px; margin-bottom:18px; }
+    .hero { display:grid; grid-template-columns:1.1fr .9fr; gap:40px; align-items:center; padding:64px 6vw 56px; color:#fff; background:radial-gradient(circle at 88% 8%,rgba(242,182,50,.28) 0,transparent 42%),linear-gradient(135deg,#0f3d2e,#1f6f54 62%,#2b8a68); }
+    .hero .tag { display:inline-block; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25); color:var(--gold); font-weight:600; font-size:.85rem; padding:6px 14px; border-radius:999px; margin-bottom:18px; }
     .hero h1 { font-size:clamp(2.2rem,5vw,3.8rem); line-height:1.05; letter-spacing:-1px; }
-    .hero h1 em { color:var(--saffron); font-style:normal; }
-    .hero p { font-size:1.1rem; color:var(--muted); max-width:30em; margin:18px 0 28px; line-height:1.6; }
-    .btn { display:inline-block; background:var(--saffron); color:#fff; padding:14px 30px; border-radius:999px; text-decoration:none; font-weight:600; border:none; cursor:pointer; font-size:1rem; }
-    .btn:hover { background:var(--saffron-d); }
+    .hero h1 em { color:var(--gold); font-style:normal; }
+    .hero p { font-size:1.1rem; color:rgba(255,255,255,.82); max-width:30em; margin:18px 0 28px; line-height:1.6; }
+    .btn { display:inline-block; background:var(--primary); color:#fff; padding:14px 30px; border-radius:999px; text-decoration:none; font-weight:600; border:none; cursor:pointer; font-size:1rem; }
+    .btn:hover { background:var(--primary-d); }
     .btn.ghost { background:transparent; color:var(--ink); border:1.5px solid var(--ink); margin-left:10px; }
     .btn.ghost:hover { background:var(--ink); color:#fff; }
-    .stats { display:flex; gap:34px; margin-top:34px; }
+    .stats { display:flex; flex-wrap:wrap; gap:18px 34px; margin-top:34px; }
     .stats b { font-family:Fraunces,serif; font-size:1.6rem; display:block; }
-    .stats span { color:var(--muted); font-size:.85rem; }
+        .stats span { color:rgba(255,255,255,.7); font-size:.85rem; }
+    .hero .btn:not(.ghost) { background:var(--gold); color:#18261f; } .hero .btn:not(.ghost):hover { background:#ffc94d; }
+    .hero .btn.ghost { color:#fff; border-color:rgba(255,255,255,.7); } .hero .btn.ghost:hover { background:#fff; color:var(--primary-d); }
+    /* company banner */
+    .banner { margin:0 6vw; transform:translateY(-34px); border-radius:28px; background:linear-gradient(120deg,#f2b632,#f7d06b 55%,#f2b632); box-shadow:var(--shadow); overflow:hidden; }
+    .banner-inner { display:grid; grid-template-columns:auto 1fr auto; gap:30px; align-items:center; padding:26px 34px; }
+    .b-logo { font-family:Fraunces,serif; font-weight:800; font-size:2.2rem; color:#14503d; line-height:1; }
+    .b-logo span { color:#18261f; } .b-logo small { display:block; font-family:Inter,sans-serif; font-weight:600; font-size:.72rem; letter-spacing:1.4px; text-transform:uppercase; margin-top:6px; color:#4a3a10; }
+    .b-text h2 { font-size:1.5rem; color:#18261f; } .b-text p { margin:6px 0 0; color:#4a3a10; font-size:.95rem; }
+    .b-imgs { display:flex; } .b-imgs img { width:74px; height:74px; border-radius:50%; object-fit:cover; border:4px solid #fff; margin-left:-16px; }
+    .b-imgs img:first-child { margin-left:0; }
+    @media (max-width:800px){ .banner-inner{grid-template-columns:1fr; text-align:center; padding:22px;} .b-imgs{justify-content:center;} }
     .collage { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
     .collage img { width:100%; height:210px; object-fit:cover; border-radius:22px; box-shadow:var(--shadow); }
     .collage img:nth-child(1){ height:260px; } .collage img:nth-child(4){ height:260px; margin-top:-50px; }
     @media (max-width:900px){ .hero{grid-template-columns:1fr;} .collage{display:none;} }
 
-    section { padding:60px 6vw; }
+    section { padding:40px 6vw 60px; }
     .sec-head { display:flex; justify-content:space-between; align-items:end; flex-wrap:wrap; gap:14px; margin-bottom:26px; }
     .sec-head h2 { font-size:2.2rem; }
     .sec-head p { margin:6px 0 0; color:var(--muted); }
@@ -53,7 +79,7 @@
     /* filters */
     .filters { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:28px; align-items:center; }
     .chip { border:1.5px solid var(--sand); background:#fff; color:var(--ink); padding:8px 18px; border-radius:999px; cursor:pointer; font-weight:500; font-size:.9rem; }
-    .chip:hover { border-color:var(--saffron); }
+    .chip:hover { border-color:var(--primary); }
     .chip.on { background:var(--ink); color:#fff; border-color:var(--ink); }
     .vegtoggle { margin-left:auto; display:flex; align-items:center; gap:8px; font-size:.9rem; font-weight:500; cursor:pointer; user-select:none; }
     .vegtoggle input { accent-color:var(--green); width:18px; height:18px; }
@@ -69,44 +95,57 @@
     .dot.nv { border-color:var(--red); } .dot.nv::after { background:var(--red); }
     .dish .body { padding:16px 18px 18px; display:flex; flex-direction:column; flex:1; }
     .dish h3 { font-size:1.12rem; }
-    .dish .cuisine { color:var(--saffron-d); font-size:.75rem; font-weight:600; text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; }
+    .dish .cuisine { color:var(--primary-d); font-size:.75rem; font-weight:600; text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; }
     .dish p { color:var(--muted); font-size:.88rem; line-height:1.45; margin:6px 0 14px; flex:1; }
     .dish .row { display:flex; justify-content:space-between; align-items:center; }
     .price { font-weight:700; font-size:1.1rem; }
-    .add { background:#fff; color:var(--saffron-d); border:1.5px solid var(--saffron); border-radius:10px; padding:8px 20px; font-weight:700; cursor:pointer; }
-    .add:hover { background:var(--saffron); color:#fff; }
-    .qty { display:flex; align-items:center; gap:10px; background:var(--saffron); color:#fff; border-radius:10px; padding:4px 6px; }
+    .add { background:#fff; color:var(--primary-d); border:1.5px solid var(--primary); border-radius:10px; padding:8px 20px; font-weight:700; cursor:pointer; }
+    .add:hover { background:var(--primary); color:#fff; }
+    .qty { display:flex; align-items:center; gap:10px; background:var(--primary); color:#fff; border-radius:10px; padding:4px 6px; }
     .qty button { background:none; border:none; color:#fff; font-size:1.2rem; width:28px; height:28px; cursor:pointer; font-weight:700; }
     .qty span { min-width:16px; text-align:center; font-weight:700; }
 
     /* plans + info */
     .plans { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:24px; }
     .plan { background:#fff; border-radius:22px; padding:28px; box-shadow:var(--shadow); border:2px solid transparent; }
-    .plan.hot { border-color:var(--saffron); }
-    .plan h3 { font-size:1.3rem; } .plan .big { font-family:Fraunces,serif; font-size:2.2rem; color:var(--saffron); margin:10px 0; }
+    .plan.hot { border-color:var(--primary); }
+    .plan h3 { font-size:1.3rem; } .plan .big { font-family:Fraunces,serif; font-size:2.2rem; color:var(--primary); margin:10px 0; }
     .plan ul { padding-left:18px; color:var(--muted); line-height:1.9; margin:0; }
     .info { background:var(--sand); }
     .info-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:22px; }
     .info-card { background:#fff; border-radius:18px; padding:22px; }
     .info-card .e { font-size:1.8rem; } .info-card h3 { font-size:1.05rem; margin:8px 0 4px; } .info-card p { margin:0; color:var(--muted); font-size:.92rem; line-height:1.5; }
-    footer { text-align:center; padding:34px 6vw; color:var(--muted); font-size:.88rem; }
+    footer { background:var(--ink); color:#c9d3cd; padding:56px 6vw 24px; }
+    .f-grid { display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:34px; }
+    .f-grid h4 { color:#fff; margin:0 0 14px; font-size:.95rem; letter-spacing:.5px; }
+    .f-grid a { display:block; color:#c9d3cd; text-decoration:none; font-size:.9rem; padding:5px 0; cursor:pointer; } .f-grid a:hover { color:var(--gold); }
+    .f-brand .logo { font-size:1.7rem; } .f-brand p { font-size:.88rem; line-height:1.6; margin:12px 0 0; max-width:26em; }
+    .f-copy { border-top:1px solid rgba(255,255,255,.12); margin-top:36px; padding-top:18px; font-size:.8rem; color:#93a39a; text-align:center; line-height:1.6; }
+    @media (max-width:800px){ .f-grid{grid-template-columns:1fr 1fr;} .f-brand{grid-column:1 / -1;} }
+    /* ratings, badges */
+    .rate { font-size:.8rem; color:var(--muted); margin:2px 0 0; } .rate b { color:#a5710b; }
+    .badge { position:absolute; top:12px; right:12px; font-size:.72rem; font-weight:700; padding:4px 10px; border-radius:999px; color:#fff; background:var(--primary); }
+    .badge.Bestseller { background:#c2410c; } .badge.New { background:#1d4ed8; } .badge.Sale { background:#c92a2a; }
+    .price s { color:#9aa59f; font-weight:500; font-size:.85rem; margin-left:6px; }
+    .b.alert { background:#fff8e1; border:1.5px solid var(--gold); }
+    .b.alert::before { content:"👩‍💼 Needs a person"; display:block; font-weight:700; font-size:.78rem; color:#8a5a00; margin-bottom:4px; }
 
     /* cart drawer */
-    #overlay { position:fixed; inset:0; background:rgba(30,15,5,.45); display:none; z-index:40; }
+    #overlay { position:fixed; inset:0; background:rgba(10,25,18,.5); display:none; z-index:40; }
     #overlay.on { display:block; }
     #drawer { position:fixed; top:0; right:0; height:100%; width:420px; max-width:100vw; background:#fff; z-index:41; transform:translateX(105%); transition:transform .3s; display:flex; flex-direction:column; box-shadow:-10px 0 40px rgba(0,0,0,.2); }
     #drawer.on { transform:none; }
     .d-head { display:flex; justify-content:space-between; align-items:center; padding:20px 22px; border-bottom:1px solid var(--sand); }
     .d-head h2 { font-size:1.5rem; } .d-head button { background:none; border:none; font-size:1.8rem; cursor:pointer; color:var(--muted); }
     #d-items { flex:1; overflow-y:auto; padding:14px 22px; }
-    .ci { display:flex; gap:12px; align-items:center; padding:12px 0; border-bottom:1px solid #f5ece1; }
+    .ci { display:flex; gap:12px; align-items:center; padding:12px 0; border-bottom:1px solid #f1ede2; }
     .ci img, .ci .em { width:56px; height:56px; border-radius:12px; object-fit:cover; background:var(--sand); display:flex; align-items:center; justify-content:center; font-size:1.5rem; flex-shrink:0; }
     .ci .nm { flex:1; font-weight:600; font-size:.92rem; } .ci .nm small { display:block; color:var(--muted); font-weight:400; }
     .ci .qty { padding:2px 4px; } .ci .qty button { width:24px; height:24px; font-size:1rem; }
     .empty { text-align:center; color:var(--muted); padding:50px 10px; }
     .addons h4 { margin:18px 0 8px; font-size:.9rem; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; }
     .addons .chips { display:flex; flex-wrap:wrap; gap:8px; }
-    .addons button { border:1.5px dashed var(--saffron); background:#fff8f0; color:var(--saffron-d); border-radius:999px; padding:6px 12px; font-size:.82rem; font-weight:600; cursor:pointer; }
+    .addons button { border:1.5px dashed var(--primary); background:#f3faf6; color:var(--primary-d); border-radius:999px; padding:6px 12px; font-size:.82rem; font-weight:600; cursor:pointer; }
     .d-foot { padding:18px 22px; border-top:1px solid var(--sand); background:var(--cream); }
     .tot { display:flex; justify-content:space-between; font-size:.92rem; margin-bottom:6px; color:var(--muted); }
     .tot.big { color:var(--ink); font-weight:700; font-size:1.15rem; margin:10px 0 14px; }
@@ -115,45 +154,51 @@
     .d-foot .btn:disabled { background:#d9c9b8; cursor:not-allowed; }
 
     /* checkout modal */
-    #modal { position:fixed; inset:0; z-index:60; display:none; align-items:center; justify-content:center; background:rgba(30,15,5,.55); padding:16px; }
+    #modal { position:fixed; inset:0; z-index:60; display:none; align-items:center; justify-content:center; background:rgba(10,25,18,.6); padding:16px; }
     #modal.on { display:flex; }
     .mbox { background:#fff; border-radius:24px; padding:28px; width:440px; max-width:100%; max-height:92vh; overflow-y:auto; }
     .mbox h2 { font-size:1.6rem; margin-bottom:14px; }
     .mbox label { display:block; font-size:.85rem; font-weight:600; margin:12px 0 4px; }
     .mbox input, .mbox select, .mbox textarea { width:100%; padding:10px 12px; border:1.5px solid var(--sand); border-radius:10px; font:inherit; }
-    .mbox input:focus, .mbox select:focus, .mbox textarea:focus { outline:none; border-color:var(--saffron); }
+    .mbox input:focus, .mbox select:focus, .mbox textarea:focus { outline:none; border-color:var(--primary); }
     .mbox .btn { width:100%; margin-top:20px; }
     .mbox .cancel { display:block; text-align:center; margin-top:12px; color:var(--muted); cursor:pointer; font-size:.9rem; }
-    .done { text-align:center; } .done .big { font-size:3.4rem; } .done .oid { font-family:Fraunces,serif; font-size:1.6rem; color:var(--saffron); margin:6px 0; }
+    .done { text-align:center; } .done .big { font-size:3.4rem; } .done .oid { font-family:Fraunces,serif; font-size:1.6rem; color:var(--primary); margin:6px 0; }
     .note { font-size:.8rem; color:var(--muted); margin-top:10px; }
     #toast { position:fixed; left:50%; bottom:28px; transform:translateX(-50%) translateY(120px); background:var(--ink); color:#fff; padding:12px 22px; border-radius:999px; font-size:.9rem; z-index:70; transition:transform .3s; }
     #toast.on { transform:translateX(-50%) translateY(0); }
 
     /* Tanny chat widget */
     #tanny-btn { position:fixed; right:22px; bottom:22px; height:62px; border-radius:999px; border:none; background:var(--ink); color:#fff; font-size:1rem; font-weight:600; cursor:pointer; box-shadow:0 8px 24px rgba(0,0,0,.3); z-index:50; padding:0 22px 0 16px; display:flex; align-items:center; gap:10px; }
-    #tanny-btn:hover { background:#4a3324; }
-    #tanny-btn .av { width:36px; height:36px; border-radius:50%; background:var(--saffron); display:flex; align-items:center; justify-content:center; font-size:1.2rem; }
+    #tanny-btn:hover { background:#2b3f35; }
+    #tanny-btn .av { width:36px; height:36px; border-radius:50%; background:var(--primary); display:flex; align-items:center; justify-content:center; font-size:1.2rem; }
     #tanny-panel { position:fixed; right:22px; bottom:96px; width:370px; max-width:calc(100vw - 32px); height:530px; max-height:calc(100vh - 120px); background:#fff; border-radius:22px; box-shadow:0 16px 50px rgba(0,0,0,.3); display:none; flex-direction:column; overflow:hidden; z-index:50; }
     #tanny-panel.open { display:flex; }
     .t-head { background:var(--ink); color:#fff; padding:14px 16px; display:flex; justify-content:space-between; align-items:center; }
-    .t-head .who { display:flex; gap:10px; align-items:center; } .t-head .av { width:38px; height:38px; border-radius:50%; background:var(--saffron); display:flex; align-items:center; justify-content:center; font-size:1.2rem; }
+    .t-head .who { display:flex; gap:10px; align-items:center; } .t-head .av { width:38px; height:38px; border-radius:50%; background:var(--primary); display:flex; align-items:center; justify-content:center; font-size:1.2rem; }
     .t-head b { display:block; } .t-head small { opacity:.8; }
     .t-head button { background:none; border:none; color:#fff; font-size:1.5rem; cursor:pointer; }
     #t-msgs { flex:1; overflow-y:auto; padding:14px; display:flex; flex-direction:column; gap:10px; background:var(--cream); }
     .b { max-width:82%; padding:9px 13px; border-radius:16px; line-height:1.4; font-size:.92rem; white-space:pre-wrap; word-wrap:break-word; }
     .b.tanny { background:#fff; border:1px solid var(--sand); align-self:flex-start; border-bottom-left-radius:4px; }
-    .b.user { background:var(--saffron); color:#fff; align-self:flex-end; border-bottom-right-radius:4px; }
+    .b.user { background:var(--primary); color:#fff; align-self:flex-end; border-bottom-right-radius:4px; }
     .b.typing { color:var(--muted); font-style:italic; }
     #t-form { display:flex; gap:8px; padding:10px; border-top:1px solid var(--sand); }
     #t-input { flex:1; padding:10px 14px; border:1.5px solid var(--sand); border-radius:999px; font-size:.93rem; outline:none; font-family:inherit; }
-    #t-input:focus { border-color:var(--saffron); }
-    #t-form button { background:var(--saffron); color:#fff; border:none; border-radius:999px; padding:0 18px; font-weight:600; cursor:pointer; }
+    #t-input:focus { border-color:var(--primary); }
+    #t-form button { background:var(--primary); color:#fff; border:none; border-radius:999px; padding:0 18px; font-weight:600; cursor:pointer; }
     #t-form button:disabled { opacity:.5; cursor:default; }
   </style>
 </head>
 <body>
-  <header>
-    <div class="logo">Tiffin<span>Go</span></div>
+  <div class="topbar">🚚 Free delivery above <b>₹300</b> · Lunch 11 AM–3 PM · Dinner 7 PM–11 PM · Monthly plans from <b>₹2,400</b></div>
+  <header id="top">
+    <a class="logo" id="logo" href="#top" aria-label="TiffinGo, back to top">Tiffin<span>Go</span></a>
+    <div class="search" id="search-box">
+      <span class="ic">🔍</span>
+      <input id="search" type="search" placeholder="Search dishes, cuisines, sweets…" autocomplete="off" aria-label="Search the menu" />
+    </div>
+    <button id="search-toggle" aria-label="Search">🔍</button>
     <nav>
       <a href="#menu">Menu</a><a href="#plans">Tiffin plans</a><a href="#delivery">Delivery</a>
       <button id="cart-open">🛒 Cart <span id="cart-count"></span></button>
@@ -173,6 +218,14 @@
       <img src="images/masala-dosa.jpg" alt="Masala dosa" />
       <img src="images/gulab-jamun.jpg" alt="Gulab jamun" />
       <img src="images/pav-bhaji.jpg" alt="Pav bhaji" />
+    </div>
+  </div>
+
+  <div class="banner">
+    <div class="banner-inner">
+      <div class="b-logo">Tiffin<span>Go</span><small>Home kitchens · Real food</small></div>
+      <div class="b-text"><h2>Ghar ka khaana. Ghar jaisa pyaar.</h2><p>Every dish is cooked by a partner home chef. Kitchens are hygiene-checked every 3 months.</p></div>
+      <div class="b-imgs"><img src="images/rajma-chawal.jpg" alt="" /><img src="images/gulab-jamun.jpg" alt="" /><img src="images/masala-chai.jpg" alt="" /><img src="images/dhokla.jpg" alt="" /></div>
     </div>
   </div>
 
@@ -203,7 +256,15 @@
     </div>
   </section>
 
-  <footer>TiffinGo is a made-up business used for a learning project. All data and orders are practice data. Food photos from Wikipedia / Wikimedia Commons (free licences).</footer>
+  <footer>
+    <div class="f-grid">
+      <div class="f-brand"><a class="logo" href="#top">Tiffin<span>Go</span></a><p>Home-style meals from partner home kitchens, as single orders or monthly tiffin plans.</p></div>
+      <div><h4>EAT WITH US</h4><a href="#menu">Today's menu</a><a href="#plans">Tiffin plans</a><a href="#delivery">Delivery areas &amp; hours</a><a data-cat-link="Sweets">Mithai &amp; sweets</a></div>
+      <div><h4>SUPPORT</h4><a data-chat>Chat with Tanny</a><a data-chat>Track my order</a><a data-chat>Refunds &amp; cancellations</a><a data-chat>Talk to an executive</a></div>
+      <div><h4>COMPANY</h4><a data-soon>About us</a><a data-soon>List your home kitchen</a><a data-soon>Careers</a><a data-soon>Press</a></div>
+    </div>
+    <div class="f-copy">© 2026 TiffinGo. A made-up business for a learning project: all data and orders are practice data.<br/>Food photos from Wikipedia / Wikimedia Commons (free licences).</div>
+  </footer>
 
   <!-- cart drawer -->
   <div id="overlay"></div>
@@ -241,7 +302,7 @@
       // North Indian
       {id:"paneer-butter-masala", n:"Paneer Butter Masala + 4 Roti", c:"North Indian", v:1, p:265, img:"paneer-butter-masala.jpg", e:"🧀", d:"Soft paneer in a rich tomato-butter gravy."},
       {id:"palak-paneer", n:"Palak Paneer + 3 Roti", c:"North Indian", v:1, p:245, img:"palak-paneer.jpg", e:"🥬", d:"Paneer in a smooth, mildly spiced spinach gravy."},
-      {id:"dal-tadka", n:"Dal Tadka + 3 Roti", c:"North Indian", v:1, p:160, img:"dal-tadka.png", e:"🍲", d:"Yellow dal tempered with ghee, garlic and jeera."},
+      {id:"dal-tadka", n:"Dal Makhani + 3 Roti", c:"North Indian", v:1, p:160, img:"dal-tadka.jpg", e:"🍲", d:"Slow-cooked black lentils in a creamy, buttery gravy."},
       {id:"rajma-chawal", n:"Rajma Chawal", c:"North Indian", v:1, p:143, img:"rajma-chawal.jpg", e:"🍚", d:"Slow-cooked rajma with steamed rice."},
       {id:"chole-bhature", n:"Chole Bhature", c:"North Indian", v:1, p:185, img:"chole-bhature.jpg", e:"🫓", d:"Spicy chole with 2 fluffy bhature."},
       {id:"aloo-paratha", n:"Aloo Paratha x2 + Curd", c:"North Indian", v:1, p:195, img:"aloo-paratha.jpg", e:"🫓", d:"Two stuffed parathas with fresh curd."},
@@ -249,7 +310,7 @@
       {id:"dal-khichdi", n:"Dal Khichdi", c:"North Indian", v:1, p:175, img:"dal-khichdi.jpg", e:"🥘", d:"Comfort food, just like home."},
       {id:"veg-biryani", n:"Veg Biryani", c:"North Indian", v:1, p:170, img:"veg-biryani.jpg", e:"🍲", d:"Fragrant biryani with vegetables, served with raita."},
       {id:"chicken-curry", n:"Chicken Curry + Rice", c:"North Indian", v:0, p:315, img:"chicken-curry.jpg", e:"🍗", d:"Home-style chicken curry with steamed rice."},
-      {id:"egg-curry", n:"Egg Curry + 3 Roti", c:"North Indian", v:0, p:215, img:"egg-curry.jpg", e:"🥚", d:"Boiled eggs in a spicy onion-tomato gravy."},
+      {id:"egg-curry", n:"Egg Roast + 3 Roti", c:"North Indian", v:0, p:215, img:"egg-curry.jpg", e:"🥚", d:"Boiled eggs in a spicy onion-tomato masala."},
       // South Indian
       {id:"masala-dosa", n:"Masala Dosa", c:"South Indian", v:1, p:130, img:"masala-dosa.jpg", e:"🥞", d:"Crisp dosa with potato masala, sambar and chutney."},
       {id:"idli-sambar", n:"Idli Sambar (4 pc)", c:"South Indian", v:1, p:110, img:"idli-sambar.jpg", e:"⚪", d:"Soft steamed idlis with sambar and coconut chutney."},
@@ -289,12 +350,22 @@
       {id:"papad", n:"Roasted Papad", c:"Add-ons", v:1, p:15, img:"papad.jpg", e:"🟤", d:"Crisp roasted papad."},
       {id:"roti", n:"Extra Roti (2 pc)", c:"Add-ons", v:1, p:20, img:"roti.jpg", e:"🫓", d:"Two soft phulkas with ghee."},
     ];
+    // Demo data for ratings, reviews, badges and "was" prices. Made up, but fixed (not random on each load).
+    const BADGES = {"veg-thali":"Bestseller","paneer-butter-masala":"Bestseller","masala-dosa":"Bestseller","gulab-jamun":"Bestseller","pav-bhaji":"Bestseller","chole-bhature":"Bestseller","masala-chai":"Bestseller",
+      "puran-poli":"New","jaljeera":"New","thepla":"New","misal-pav":"New","shrikhand":"New","fish-jhol":"New",
+      "dal-khichdi":"Sale","veg-biryani":"Sale","kheer":"Sale","sweet-lassi":"Sale","aloo-paratha":"Sale","chicken-curry":"Sale","rasgulla":"Sale"};
+    MENU.forEach((m, i) => {
+      m.rating = +(3.8 + ((i * 7) % 12) / 10).toFixed(1);          // 3.8 to 4.9
+      m.reviews = 20 + ((i * 613) % 4980);                          // 20 to 4999
+      m.badge = BADGES[m.id] || "";
+      m.orig = m.badge === "Sale" ? Math.ceil(m.p * 1.2 / 5) * 5 : 0; // higher "was" price, shown with a strikethrough
+    });
     const CATS = ["All","Thali","North Indian","South Indian","Gujarati & Maharashtrian","Bengali","Sweets","Beverages","Add-ons"];
     const byId = Object.fromEntries(MENU.map(m => [m.id, m]));
     const rupee = n => "₹" + n.toLocaleString("en-IN");
 
     /* ---------- STATE ---------- */
-    let cat = "All", vegOnly = false;
+    let cat = "All", vegOnly = false, query = "";
     // cart = { dishId: quantity }. Only known dish ids are kept, so stored data can't inject anything.
     let cart = {};
     try {
@@ -315,17 +386,19 @@
     }
     function renderFilters() {
       document.getElementById("filters").innerHTML =
-        CATS.map(c => `<button class="chip ${c === cat ? "on" : ""}" data-cat="${c}">${c}</button>`).join("") +
+        CATS.map(c => `<button class="chip ${c === cat && !query ? "on" : ""}" data-cat="${c}">${c}</button>`).join("") +
         `<label class="vegtoggle"><input type="checkbox" id="veg" ${vegOnly ? "checked" : ""}/> Veg only</label>`;
     }
     function renderGrid() {
-      const items = MENU.filter(m => (cat === "All" || m.c === cat) && (!vegOnly || m.v));
+      const q = query.toLowerCase();
+      const items = MENU.filter(m => (q ? (m.n + " " + m.c + " " + m.d).toLowerCase().includes(q) : (cat === "All" || m.c === cat)) && (!vegOnly || m.v));
       document.getElementById("grid").innerHTML = items.map(m => `
         <article class="dish">
-          <div class="ph">${photo(m)}<span class="dot ${m.v ? "" : "nv"}" title="${m.v ? "Veg" : "Non-veg"}"></span></div>
+          <div class="ph">${photo(m)}<span class="dot ${m.v ? "" : "nv"}" title="${m.v ? "Veg" : "Non-veg"}"></span>${m.badge ? `<span class="badge ${m.badge}">${m.badge}</span>` : ""}</div>
           <div class="body">
-            <div class="cuisine">${m.c}</div><h3>${m.n}</h3><p>${m.d}</p>
-            <div class="row"><span class="price">${rupee(m.p)}</span><span id="q-${m.id}">${qtyControl(m.id)}</span></div>
+            <div class="cuisine">${m.c}</div><h3>${m.n}</h3>
+            <div class="rate"><b>★ ${m.rating.toFixed(1)}</b> (${m.reviews.toLocaleString("en-IN")} reviews)</div><p>${m.d}</p>
+            <div class="row"><span class="price">${rupee(m.p)}${m.orig ? `<s>${rupee(m.orig)}</s>` : ""}</span><span id="q-${m.id}">${qtyControl(m.id)}</span></div>
           </div>
         </article>`).join("") || `<p>No dishes match.</p>`;
     }
@@ -415,7 +488,7 @@
       const t = e.target.closest("button, .cancel, #overlay"); if (!t) return;
       if (t.dataset.inc) change(t.dataset.inc, 1);
       else if (t.dataset.dec) change(t.dataset.dec, -1);
-      else if (t.dataset.cat) { cat = t.dataset.cat; renderFilters(); renderGrid(); }
+      else if (t.dataset.cat) { cat = t.dataset.cat; query = ""; document.getElementById("search").value = ""; renderFilters(); renderGrid(); }
       else if (t.id === "cart-open") { renderDrawer(); openDrawer(true); }
       else if (t.id === "cart-close" || t.id === "overlay") openDrawer(false);
       else if (t.id === "checkout") openCheckout();
@@ -427,6 +500,27 @@
       const t = document.getElementById("toast"); t.textContent = msg; t.classList.add("on");
       clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("on"), 1800);
     }
+    // search box (collapsed behind the 🔍 button on mobile)
+    const searchEl = document.getElementById("search");
+    searchEl.addEventListener("input", () => {
+      query = searchEl.value.trim(); renderFilters(); renderGrid();
+      if (query) document.getElementById("menu").scrollIntoView({behavior: "smooth", block: "start"});
+    });
+    document.getElementById("search-toggle").onclick = () => {
+      const box = document.getElementById("search-box"); box.classList.toggle("open");
+      if (box.classList.contains("open")) searchEl.focus();
+    };
+    // clicking the TiffinGo name goes back to the top
+    document.getElementById("logo").addEventListener("click", e => {
+      e.preventDefault(); window.scrollTo({top: 0, behavior: "smooth"});
+    });
+    // footer links
+    document.querySelectorAll("footer a").forEach(a => a.addEventListener("click", e => {
+      if (a.hasAttribute("data-chat")) { e.preventDefault(); toggleChat(true); }
+      else if (a.hasAttribute("data-soon")) { e.preventDefault(); toast("Coming soon (demo)"); }
+      else if (a.dataset.catLink) { e.preventDefault(); cat = a.dataset.catLink; query = ""; searchEl.value = ""; renderFilters(); renderGrid(); document.getElementById("menu").scrollIntoView({behavior: "smooth"}); }
+      else if (a.getAttribute("href") === "#top") { e.preventDefault(); window.scrollTo({top: 0, behavior: "smooth"}); }
+    }));
     renderFilters(); renderGrid(); refresh();
 
     /* ---------- TANNY CHAT WIDGET ---------- */
@@ -464,7 +558,7 @@
         });
         const data = await res.json(); typing.remove();
         const reply = data.reply || "Sorry, something went wrong. Please try again.";
-        addBubble("tanny", reply);
+        addBubble(data.escalated ? "tanny alert" : "tanny", reply);
         history.push({role: "user", text}, {role: "tanny", text: reply});
       } catch (err) {
         typing.remove(); addBubble("tanny", "Sorry, I can't connect right now. Please try again.");
